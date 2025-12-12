@@ -9,7 +9,7 @@ export function addEC3Building(map, opts = {}) {
   const modelOrigin = opts.origin || [55.36644615299536, 25.23868429581407];
   const modelAltitude = typeof opts.altitude === 'number' ? opts.altitude : 0;
   // const modelAltitude = 0;
-  const modelRotate = opts.rotate || [Math.PI / 2, 0, Math.PI / 2];
+  const modelRotate = opts.rotate || [Math.PI / 2, 0, 0];
 
   const mercator = mapboxgl.MercatorCoordinate.fromLngLat(modelOrigin, modelAltitude);
 
@@ -92,8 +92,11 @@ export function addEC3Building(map, opts = {}) {
           // collect meshes and tag them with buildingId
           this.modelRoot.traverse((child) => {
             if (child.isMesh) {
+              
+
               // Ensure geometry has bounding data
               if (!child.geometry.boundingBox) child.geometry.computeBoundingBox();
+              
 
               this.meshes.push(child);
               this.meshToBuilding.set(child, buildingId);
