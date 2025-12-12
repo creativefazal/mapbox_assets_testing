@@ -15,7 +15,7 @@ const map = createMap();
 map.on("load", () => {
 
     add3DBuildings(map);
-    addEC3Building(map, { meshScale: 5, buildingId: 'ec3' });
+    addEC3Building(map, { meshScale: 1, buildingId: 'ec3' });
     
 });
 

@@ -61,7 +61,7 @@ export function switchMapStyle(map, newStyle) {
         
         if (window.add3DBuildings) {
             window.add3DBuildings(map); // global safe hook
-            window.addEC3Building(map,{ meshScale: 5, buildingId: 'ec3' } ); // global safe hook
+            window.addEC3Building(map,{ meshScale: 1, buildingId: 'ec3' } ); // global safe hook
         }
 
         // Delay hiding by 1.5 second

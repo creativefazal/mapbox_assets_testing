@@ -6,7 +6,7 @@ export function createMap() {
     const map = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mapbox/satellite-streets-v12",
-        center: [55.35651434815996, 25.234269251701356],
+        center: [55.36644615299536, 25.23868429581407],
         zoom: 16,
         pitch: 0,
         bearing: 20,

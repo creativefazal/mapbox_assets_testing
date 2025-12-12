@@ -6,9 +6,10 @@ export function addEC3Building(map, opts = {}) {
   const meshScale = typeof opts.meshScale === 'number' ? opts.meshScale : 1; // visual multiplier
   const buildingId = opts.buildingId || 'ec3';
   // georeference
-  const modelOrigin = opts.origin || [55.35651434815996, 25.234269251701356];
+  const modelOrigin = opts.origin || [55.36644615299536, 25.23868429581407];
   const modelAltitude = typeof opts.altitude === 'number' ? opts.altitude : 0;
-  const modelRotate = opts.rotate || [Math.PI / 2, 0, 0];
+  // const modelAltitude = 0;
+  const modelRotate = opts.rotate || [Math.PI / 2, 0, Math.PI / 2];
 
   const mercator = mapboxgl.MercatorCoordinate.fromLngLat(modelOrigin, modelAltitude);
 
@@ -51,6 +52,7 @@ export function addEC3Building(map, opts = {}) {
       const light1 = new THREE.DirectionalLight(0xffffff, 0.9);
       light1.position.set(0, -70, 100).normalize();
       this.scene.add(light1);
+
       const light2 = new THREE.DirectionalLight(0xffffff, 0.6);
       light2.position.set(0, 70, 100).normalize();
       this.scene.add(light2);
@@ -62,11 +64,16 @@ export function addEC3Building(map, opts = {}) {
 
       // Load model
       const loader = new THREE.GLTFLoader();
+      const ec3ModelUrl = './assets/models/ec3.glb';
+
       loader.load(
-        opts.url || 'https://docs.mapbox.com/mapbox-gl-js/assets/34M_17/34M_17.gltf',
+        ec3ModelUrl,
         (gltf) => {
           // Add model to scene
           this.modelRoot = gltf.scene;
+
+          this.modelRoot.position.z = -50;
+          this.modelRoot.position.set(0,0,0);
 
           // Compute mercator unit (version-safe)
           const mercatorUnit = typeof mercator.meterInMercatorCoordinateUnits === 'function'
@@ -262,17 +269,13 @@ export function addEC3Building(map, opts = {}) {
         if (this.pendingClick) {
           const info = document.getElementById('info');
           if (hitBuilding) {
-            if (info) {
             //   info.innerHTML = `Clicked building: ${hitBuilding}`;
               info.innerHTML = `
-                <div class="building-details"> <h1> You Clicked a building </h1></div>
+                <div class="animate__animated animate__fadeInUp"> <h1> You Clicked a building </h1></div>
               `;
-              info.style.display = 'block';
-            } else {
-              console.log('Clicked building:', hitBuilding);
-            }
+              info.style.display = 'block';            
           } else {
-            if (info) info.style.display = 'none';
+            info.style.display = 'none';
           }
           this.pendingClick = false;
         }
